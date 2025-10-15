@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from "react";
 import CellMt from '../Cell/Cell-mt.jsx'
 import CellX from '../Cell/Cell-x.jsx'
 import CellO from '../Cell/Cell-o.jsx'
@@ -9,11 +10,7 @@ const components = {
     CellO:  CellO, 
 };
 
- const cellArray = [
-        [{id:"1a", value:"CellO"}, {id:"2a", value:"CellX"}, {id:"3a", value:"CellMt"}],
-        [{id:"1b", value:"CellMt"}, {id:"2b", value:"CellO"}, {id:"3b", value:"CellX"}],
-        [{id:"1c", value:"CellX"}, {id:"2c", value:"CellMt"}, {id:"3c", value:"CellO"}]
-    ];
+ 
 
 function DynamicComponentRenderer({ type }) {
     try{
@@ -28,7 +25,12 @@ function DynamicComponentRenderer({ type }) {
 }
 
 function BaseBackground() {
-   
+   const [cellArray, setCellArray] = useState([
+        [{id:"1a", value:"CellO"}, {id:"2a", value:"CellX"}, {id:"3a", value:"CellMt"}],
+        [{id:"1b", value:"CellMt"}, {id:"2b", value:"CellO"}, {id:"3b", value:"CellX"}],
+        [{id:"1c", value:"CellX"}, {id:"2c", value:"CellMt"}, {id:"3c", value:"CellO"}]
+    ]);
+
     const boardStyle = {
         maxWidth: "475px",
     };
