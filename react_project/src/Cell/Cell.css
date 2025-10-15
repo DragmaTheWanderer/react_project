@@ -1,0 +1,29 @@
+.cell {
+    min-Height: 150px;
+    min-Width: 150px;
+}
+.cell {
+    border: 2px solid black;
+    border-radius: 15px;
+}
+.cell {
+    font-size: 92px;
+    font-style: normal;
+    align-content: center;
+    font-weight: bolder;
+}
+.cell {
+    margin: 5px;
+}
+
+.cellO {
+    color: blue;
+}
+
+.cellX {
+    color: red;
+}
+
+.cellMT {
+    color:none;
+}
