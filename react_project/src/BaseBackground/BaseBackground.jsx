@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from "react";
+import { useState, useEffect  } from "react";
 import cellMt from '../Cell/Cell-mt.jsx'
 import cellX from '../Cell/Cell-x.jsx'
 import cellO from '../Cell/Cell-o.jsx'
@@ -38,6 +38,7 @@ function BaseBackground() {
     //loadof the inital array
     const [cellArray, setCellArray] = useState(initalCells);
     const [currentTurn, setCurTurn] = useState(initalTurn);
+    const [winner, setWinner] = useState("");
 
     //cell updating
     function updateCell(idToUpdate, newValue) {
@@ -48,13 +49,40 @@ function BaseBackground() {
                         (subItem.id === idToUpdate ? { ...subItem, value: newValue } : subItem))
                 )
             );
-            if(currentTurn==="cellO"){
+            updateTurn();
+            
+    };
+    function updateTurn(){
+        if(currentTurn==="cellO"){
                 setCurTurn("cellX");
             } else {
                 setCurTurn("cellO");
             }
-    };
-    
+    }
+    function updateWinner(){
+        let a = cellArray;
+        let winStr = "";
+        if(a[0][0].value !== "cellMt"){
+            if(a[0][0].value === a[0][1].value && a[0][1].value === a[0][2].value){winStr = (a[0][0].value.replace("cell","")); }
+            if(a[0][0].value === a[1][0].value && a[1][0].value === a[2][0].value){winStr = (a[0][0].value.replace("cell","")); }
+        };
+        if(a[1][1].value !== "cellMt"){
+            if(a[1][1].value === a[0][1].value === a[2][1].value){winStr = (a[1][1].value.replace("cell","")); }
+            if(a[1][1].value === a[1][0].value === a[1][2].value){winStr = (a[1][1].value.replace("cell","")); }
+            if(a[0][0].value === a[1][1].value === a[2][2].value){winStr = (a[1][1].value.replace("cell","")); }
+            if(a[1][1].value === a[0][2].value === a[2][0].value){winStr = (a[1][1].value.replace("cell","")); }
+        };
+        if(a[2][2].value !== "cellMt"){
+            if(a[2][2].value === a[0][2].value === a[1][2].value){winStr = (a[2][2].value.replace("cell","")); }
+            if(a[2][2].value === a[2][0].value === a[2][0].value){winStr = (a[2][2].value.replace("cell","")); }
+        };
+
+        setWinner(winStr);
+    }
+
+    useEffect(() => {
+        updateWinner();
+    });
     
     const boardStyle = {
         maxWidth: "475px",
@@ -68,10 +96,11 @@ function BaseBackground() {
   return (
     <div>
       <div className="row"  style={boardStyle}>
-        <p>Current Turn: {currentTurn}</p>
+        <p className="cellMarque">Current Turn: <span className={currentTurn}>{currentTurn.replace("cell","")}</span></p>
           {row1}
           {row2}
           {row3}
+        <p className="cellMarque">WINNER: <span className={winner=="" ? "cellMt" : 'cell' + winner}>{winner}</span></p>
       </div>
     </div>
 

@@ -16,6 +16,12 @@
     margin: 5px;
 }
 
+.cellMarque {
+    font-size: 36px;
+    font-style: normal;
+    font-weight: bolder;
+}
+
 .cellO {
     color: blue;
 }
