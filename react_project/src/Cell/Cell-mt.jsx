@@ -1,17 +1,18 @@
 import './cell.css';
 
 
-function Cell() {
+function Cell(props) {
 
-    /*const cellStyle = {
-        height: "200px",
-        width: "200px",
-        border: "black 2px solid"
-    }*/
+    
+    const id = props.id;
+    const value = props.value;
+    const turn = props.turn;
+    const updateFn = props.updateFn;
 
     return (
-        <div className="col-4" /*style="cellStyle" */>
-            <div className="cell cellMT"></div>
+        <div id={id} className="col-4">
+            <div className={`cell ${value}`} onClick={() => updateFn(id, turn)}></div>
+                 
         </div>
     );
 
