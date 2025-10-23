@@ -12,14 +12,15 @@ const components = {
 
 const initalTurn = `cellO` 
 
-function DynamicComponentRenderer({ type, id, turn, updateFn }) {
+function DynamicComponentRenderer({ type, id, turn, winner, updateFn }) {
     try{
         //console.log('type:', type);
         let typeStr = type;
         let idStr = id;
         let turnStr = turn;
+        let winnerStr = winner;
         const ComponentToRender = components[typeStr]; // Select component based on 'type' prop
-        return <ComponentToRender id={idStr} value={typeStr} turn={turnStr} updateFn={updateFn} />;
+        return <ComponentToRender id={idStr} value={typeStr} turn={turnStr} winner={winnerStr} updateFn={updateFn} />;
     } catch (error){
         const message = error.message || 'I broke!'
         return <span className="broken-component">{message}</span>
@@ -30,9 +31,9 @@ function BaseBackground() {
    
     //inital board layout
     let initalCells = [
-        [{id:"1a", value:"cellMt"}, {id:"2a", value:"cellMt"}, {id:"3a", value:"cellMt"}],
-        [{id:"1b", value:"cellMt"}, {id:"2b", value:"cellMt"}, {id:"3b", value:"cellMt"}],
-        [{id:"1c", value:"cellMt"}, {id:"2c", value:"cellMt"}, {id:"3c", value:"cellMt"}]
+        [{id:"a1", value:"cellMt"}, {id:"a2", value:"cellMt"}, {id:"a3", value:"cellMt"}],
+        [{id:"b1", value:"cellMt"}, {id:"b2", value:"cellMt"}, {id:"b3", value:"cellMt"}],
+        [{id:"c1", value:"cellMt"}, {id:"c2", value:"cellMt"}, {id:"c3", value:"cellMt"}]
     ];
     
     //loadof the inital array
@@ -105,9 +106,9 @@ function BaseBackground() {
     };
 
     //get the components bsed on the current layout.
-    const row1 = cellArray[0].map((rows) => <DynamicComponentRenderer key={rows.id} type={rows.value} id={rows.id} turn={currentTurn} updateFn={updateCell}/>);   
-    const row2 = cellArray[1].map((rows) => <DynamicComponentRenderer key={rows.id} type={rows.value} id={rows.id} turn={currentTurn} updateFn={updateCell}/>);   
-    const row3 = cellArray[2].map((rows) => <DynamicComponentRenderer key={rows.id} type={rows.value} id={rows.id} turn={currentTurn} updateFn={updateCell}/>);   
+    const row1 = cellArray[0].map((rows) => <DynamicComponentRenderer key={rows.id} type={rows.value} id={rows.id} turn={currentTurn} winner={winner} updateFn={updateCell}/>);   
+    const row2 = cellArray[1].map((rows) => <DynamicComponentRenderer key={rows.id} type={rows.value} id={rows.id} turn={currentTurn} winner={winner} updateFn={updateCell}/>);   
+    const row3 = cellArray[2].map((rows) => <DynamicComponentRenderer key={rows.id} type={rows.value} id={rows.id} turn={currentTurn} winner={winner} updateFn={updateCell}/>);   
 
   return (
     <div className="pannel">

@@ -44,5 +44,38 @@
 }
 
 .cellMt {
-    color:none;
+    color: transparent;
+}
+
+#a1 .cell {
+    border-top: none;
+    border-left:none;
+}
+#a2 .cell {
+    border-top: none;
+    
+}
+#a3 .cell {
+    border-top: none;
+    border-right: none;
+}
+#b1 .cell {
+   
+    border-left: none;
+}
+#b3 .cell {
+   
+    border-right: none;
+}
+#c1 .cell {
+    border-bottom: none;
+    border-left: none;
+}
+#c2 .cell {
+    border-bottom: none;
+   
+}
+#c3 .cell {
+    border-bottom: none;
+    border-right: none;
 }
