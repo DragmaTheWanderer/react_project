@@ -3,6 +3,7 @@ import { useState, useEffect  } from "react";
 import cellMt from '../Cell/Cell-mt.jsx'
 import cellX from '../Cell/Cell-x.jsx'
 import cellO from '../Cell/Cell-o.jsx'
+import { Canvas } from '../Canvas/Canvas.jsx';
 
 const components = {
     cellMt: cellMt,
@@ -42,6 +43,7 @@ function BaseBackground() {
     let [winner, setWinner] = useState("");
     let [xScore, setXScore] = useState(0);
     let [oScore, setOScore] = useState(0);
+    let [winNumber, setWinNumber] = useState(0);
 
     //cell updating
     function updateCell(idToUpdate, newValue) {
@@ -66,18 +68,42 @@ function BaseBackground() {
         let a = cellArray;
         let winStr = "";
         if(a[0][0].value !== "cellMt"){
-            if(a[0][0].value === a[0][1].value && a[0][1].value === a[0][2].value){winStr = (a[0][0].value.replace("cell","")); }
-            if(a[0][0].value === a[1][0].value && a[1][0].value === a[2][0].value){winStr = (a[0][0].value.replace("cell","")); }
+            if(a[0][0].value === a[0][1].value && a[0][1].value === a[0][2].value){
+                winStr = (a[0][0].value.replace("cell",""));
+                setWinNumber(1);
+            }
+            if(a[0][0].value === a[1][0].value && a[1][0].value === a[2][0].value){
+                winStr = (a[0][0].value.replace("cell","")); 
+                setWinNumber(4);
+            }
         };
         if(a[1][1].value !== "cellMt"){
-            if(a[1][1].value === a[0][1].value && a[1][1].value === a[2][1].value){winStr = (a[1][1].value.replace("cell","")); }
-            if(a[1][1].value === a[1][0].value && a[1][1].value === a[1][2].value){winStr = (a[1][1].value.replace("cell","")); }
-            if(a[1][1].value === a[0][0].value && a[1][1].value === a[2][2].value){winStr = (a[1][1].value.replace("cell","")); }
-            if(a[1][1].value === a[0][2].value && a[1][1].value === a[2][0].value){winStr = (a[1][1].value.replace("cell","")); }
+            if(a[1][1].value === a[0][1].value && a[1][1].value === a[2][1].value){
+                winStr = (a[1][1].value.replace("cell","")); 
+                setWinNumber(5);
+            }
+            if(a[1][1].value === a[1][0].value && a[1][1].value === a[1][2].value){
+                winStr = (a[1][1].value.replace("cell","")); 
+                setWinNumber(2);
+            }
+            if(a[1][1].value === a[0][0].value && a[1][1].value === a[2][2].value){
+                winStr = (a[1][1].value.replace("cell","")); 
+                setWinNumber(7);
+            }
+            if(a[1][1].value === a[0][2].value && a[1][1].value === a[2][0].value){
+                winStr = (a[1][1].value.replace("cell","")); 
+                setWinNumber(8);
+            }
         };
         if(a[2][2].value !== "cellMt"){
-            if(a[2][2].value === a[0][2].value && a[2][2].value === a[1][2].value){winStr = (a[2][2].value.replace("cell","")); }
-            if(a[2][2].value === a[2][0].value && a[2][2].value === a[2][0].value){winStr = (a[2][2].value.replace("cell","")); }
+            if(a[2][2].value === a[0][2].value && a[2][2].value === a[1][2].value){
+                winStr = (a[2][2].value.replace("cell","")); 
+                setWinNumber(6);
+            }
+            if(a[2][2].value === a[2][0].value && a[2][2].value === a[2][0].value){
+                winStr = (a[2][2].value.replace("cell","")); 
+                setWinNumber(3);
+            }
         };
 
         setWinner(winStr);
@@ -91,10 +117,12 @@ function BaseBackground() {
         setWinner("");
         setXScore(0);
         setOScore(0);
+        setWinNumber(0);
         }
     function newGame(){
         setCellArray(initalCells);
         setWinner("");
+        setWinNumber(0);
     }
 
     useEffect(() => {
@@ -104,6 +132,13 @@ function BaseBackground() {
     const boardStyle = {
         maxWidth: "475px",
     };
+    const canvasStyle = {
+        position: 'absolute',
+        marginTop: '70px',
+        width: '500px',
+    };
+    const canvasDim = 350;
+    
 
     //get the components bsed on the current layout.
     const row1 = cellArray[0].map((rows) => <DynamicComponentRenderer key={rows.id} type={rows.value} id={rows.id} turn={currentTurn} winner={winner} updateFn={updateCell}/>);   
@@ -118,6 +153,7 @@ function BaseBackground() {
           {row1}
           {row2}
           {row3}
+        {winNumber > 0 && <Canvas width={canvasDim} height={canvasDim} style={canvasStyle} winNumber={winNumber}/>}
         <div className="cellMarque footer">
             <span>WINNER: <span className={winner=="" ? "cellMt" : 'cell' + winner}>{winner}</span></span>
             <span className="float-end"><button type="button" className="btn btn-primary"onClick={() => newGame()}>New Game</button></span>
