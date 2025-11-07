@@ -4,7 +4,7 @@ import { createRoot } from 'react-dom/client'
 import App from './OrigApp/App.jsx'
 import BaseBackground from './BaseBackground/BaseBackground.jsx'
 
-import '/Scripts/bootstrap.js';
+//import '/Scripts/bootstrap.js';
 import '/Content/bootstrap.css';
 import '/Content/bootstrap-grid.css';
 
